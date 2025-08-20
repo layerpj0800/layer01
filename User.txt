@@ -1,0 +1,9 @@
+User
+
+{
+  "users": {
+    "jin": ["host"],
+    "alice": ["cohost"],
+    "bob": ["subscriber"]
+  }
+}

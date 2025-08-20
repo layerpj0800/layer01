@@ -1,0 +1,117 @@
+#환경 변수(.env) 정리
+
+키 네이밍 통일: DATABASE_URL, JWT_SECRET, CORS_ORIGINS, S3_BUCKET, IAMPORT_API_KEY
+🔹 키 관리 전략
+
+로컬 개발: .env 파일에 IAM Access/Secret Key
+
+운영 배포: 키 넣지 말고 서버 인스턴스에 IAM Role 연결 → 코드에서 자동으로 권한 부여됨
+
+AWS 사용 
+
+
+#DB/Alembic 마이그레이션 자동화
+
+의미: DB 스키마 변경을 버전으로 추적·배포 자동 반영.
+
+Alembic autogenerate
+
+PR 머지 시 마이그 자동 실행(프리/포스트 배포 훅).
+
+위험 변경(컬럼 삭제)은 두 단계 롤링(추가→비우기→삭제).
+
+
+
+#큐 워커 배포 설정
+
+RQ (Redis Queue)
+
+워커 수: 많으면 빨리 처리, 적으면 느리지만 자원 절약 → 자동 스케일링이 이상적.
+
+재시도: 3번 + 지수 백오프 = 안정적.
+
+큐 분리: 돈 관련(critical)·무거운(media)·나머지(default)로 나누면 안전.
+
+
+
+#미디어 업로드 S3 버킷·서명 URL 정책
+
+의미: 이미지/영상 비공개 저장 후 짧은 만료의 서명 URL로 접근.
+
+putObject(업로드용 presign)
+getObject(다운로드용 presign)
+
+
+버킷 비공개, 접근은 presigned URL만.
+
+업로드는 클라이언트→S3 직행, 서버는 URL 발급만.
+
+만료 수명은 10분 
+
+#영상트랜스코딩 
+
+Cloudflare Stream로 업로드한 영상을 HLS로 트랜스코딩해 스트리밍.
+
+Cloudflare Stream이면 보통:
+
+CF_ACCOUNT_ID (계정 ID)
+
+CF_API_TOKEN (API 권한 토큰)
+
+signed token 방식
+
+#아임포트 결제 비밀키·웹훅 서명 검증
+
+결제부분 안전성을 위해 
+REST API key/secret 방식이랑 웹훅 시그니처 헤더 검증 둘다 사용 
+
+웹훅 도착 → Signature 검증
+
+REST API로 최종 결제 상태 조회 → DB 업데이트
+
+
+#HTTPS/TLS 인증서 자동 갱신
+CDN 내장 TLS Cloudflare 자동으로 HTTPS 인증서 붙여줌.
+
+유저는 도메인만 연결하면 됨.
+
+
+#로깅 / 모니터링 
+
+ AWS CloudWatch 로그 수집(CloudWatch Logs), 메트릭 모니터링, 알람 설정까지 원스톱이니까 
+
+#PII 암호화·보존 정책 문서화
+
+DB 암호화로 채택 
+보존기간 3년후 파기 자동화. 
+
+
+#CI/CD 설정
+
+코드 변경 시 자동 빌드·배포 파이프라인
+
+GitHub → (Actions: lint/test) → Vercel (프론트) / Railway (백엔드)
+
+#코드 스타일 / 린트 
+일관된 코드 형식과 정적 분석을 통해 품질을 유지
+Python: Black
+JS: ESLint
+
+#CORS·보안 헤더 설정
+
+CORS: 필요한 도메인만 화이트리스트 등록 (https://frontend.myapp.com)
+
+Security headers: 최소한
+
+Content-Security-Policy (스크립트/리소스 제한)
+
+X-Frame-Options: DENY
+
+X-XSS-Protection: 1; mode=block
+
+
+#CDN·캐싱 정책
+Cloudflare CDN
+
+
+

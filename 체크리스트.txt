@@ -1,0 +1,41 @@
+추가 설정 체크리스트
+ 환경 변수(.env) 정리 및 샘플 제공
+
+ DB/Alembic 마이그레이션 자동화
+
+ Redis·큐 워커 배포 설정
+
+ 미디어 업로드 S3 버킷·서명 URL 정책
+
+ Cloudflare Stream/AWS Transcoder 연동 키
+
+ FCM·이메일(SendGrid/Resend) 키 및 레이트리밋
+
+ 아임포트 결제 비밀키·웹훅 서명 검증
+
+ JWT 시크릿/쿠키 옵션(secure, httponly, SameSite)
+
+ HTTPS/TLS 인증서 자동 갱신(Let’s Encrypt 등)
+
+ 로깅/모니터링(Sentry, CloudWatch, Grafana)
+
+ PII 암호화·보존 정책 문서화
+
+ CI/CD(Vercel, Railway/Render) 설정
+
+ 테스트(유닛, E2E, 로드) 자동화
+
+ 코드 스타일/린트(ESLint, Black, flake8)
+
+ CORS·보안 헤더 설정
+
+ CDN·캐싱 정책
+
+ 채팅 서비스 스케일링(WebSocket, worker 수)
+
+ 백업/스냅샷 전략(RDS, S3)
+
+ 관리자 콘솔 접근 제어
+
+ 릴리스 체크리스트/롤백 전략
+

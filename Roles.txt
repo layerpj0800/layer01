@@ -1,0 +1,38 @@
+Roles
+
+{
+  "roles": {
+    "host": [
+      "channel:own",
+      "channel:manage",
+      "member:subscribe_manage",
+      "member:block_manage",
+      "post:create",
+      "post:edit",
+      "post:delete",
+      "chat:write",
+      "chat:delete",
+      "chat:read",
+      "comment:write",
+      "post:like"
+    ],
+    "cohost": [
+      "channel:own",
+      "channel:manage",
+      "post:create",
+      "post:edit",
+      "post:delete",
+      "chat:write",
+      "chat:delete",
+      "chat:read",
+      "comment:write",
+      "post:like"
+    ],
+    "subscriber": [
+      "post:read",
+      "chat:read",
+      "comment:write",
+      "post:like"
+    ]
+  }
+}
