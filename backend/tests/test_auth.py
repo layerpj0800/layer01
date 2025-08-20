@@ -6,6 +6,8 @@ os.environ["JWT_SECRET"] = "testsecret"
 os.environ["CORS_ORIGINS"] = "*"
 os.environ["S3_BUCKET"] = "test"
 os.environ["IAMPORT_API_KEY"] = "test"
+os.environ["IAMPORT_API_SECRET"] = "test"
+os.environ["IAMPORT_WEBHOOK_SECRET"] = "whsec"
 
 from fastapi.testclient import TestClient  # noqa: E402
 

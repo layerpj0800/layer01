@@ -8,6 +8,8 @@ class Settings(BaseSettings):
   cors_origins: str
   s3_bucket: str
   iamport_api_key: str
+  iamport_api_secret: str
+  iamport_webhook_secret: str
 
   class Config:
     env_file = '.env'

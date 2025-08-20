@@ -1,5 +1,5 @@
 """API routers."""
 
-from . import auth
+from . import auth, payments, subscriptions
 
-__all__ = ["auth"]
+__all__ = ["auth", "payments", "subscriptions"]
