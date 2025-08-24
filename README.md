@@ -11,18 +11,24 @@
 호스트(창작자): 글, 이미지, 영상, 고정 메시지, 알림 발송
 
 구독자: 채널 구독, 콘텐츠 열람, 알림 수신, 컬렉션 관리
+프로젝트 구조
+
+backend/	FastAPI 서버
+desktop/	Electron 기반 PC 클라이언트
+infrastructure/	Docker 및 배포 스크립트
+
 
 2.기술스택 
 
-프론트엔드
+데스크톱 앱
 
-Next.js (React 기반): SEO/SSR 지원, App Router 구조
+Electron (HTML/JS 기반)으로 OS별 설치 패키지 제공
 
 상태 관리: React Query 
 
 스타일링: TailwindCSS + shadcn/ui 
 
-배포: Vercel (자동 배포/프리뷰)
+배포: 설치 파일 배포 (예: Squirrel, AppImage)
 
 백엔드
 
