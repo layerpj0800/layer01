@@ -2,8 +2,10 @@ from fastapi import FastAPI
 
 from .core.config import settings
 
-app = FastAPI(title="Layer01 API")
+from .api import auth, payments, subscriptions
 
+
+app = FastAPI(title="Layer01 API")
 
 
 app.include_router(auth.router)
@@ -13,4 +15,5 @@ app.include_router(payments.router, prefix="/api/v1")
 
 @app.get("/")
 async def root() -> dict[str, str]:
+
     return {"message": "Hello, world"}

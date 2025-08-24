@@ -3,7 +3,8 @@ import asyncio
 
 os.environ["DATABASE_URL"] = "sqlite+aiosqlite:///:memory:"
 os.environ["JWT_SECRET"] = "testsecret"
-os.environ["CORS_ORIGINS"] = "*"
+
+
 os.environ["S3_BUCKET"] = "test"
 os.environ["IAMPORT_API_KEY"] = "test"
 os.environ["IAMPORT_API_SECRET"] = "test"
