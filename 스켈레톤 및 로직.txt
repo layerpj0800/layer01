@@ -1,0 +1,72 @@
+스켈레톤 및 로직
+
+
+/frontend (Next.js + React Query + TailwindCSS + shadcn/ui)
+  ├─ app/                   # App Router 기반 페이지
+  │  ├─ (public)/           # 공개 페이지(홈, 채널 리스트, 채널 상세)
+  │  ├─ (auth)/             # 회원가입/로그인
+  │  └─ (dashboard)/        # 구독자·호스트 대시보드
+  ├─ components/            # UI 컴포넌트
+  ├─ hooks/                 # React Query, 유틸 훅
+  ├─ lib/                   # API 클라이언트, 인증/쿠키 유틸
+  ├─ styles/                # 글로벌 스타일·Tailwind 설정
+  └─ public/                # 정적 리소스
+
+/backend (FastAPI + SQLAlchemy + Alembic)
+  ├─ app/
+  │  ├─ api/                # /api/v1 엔드포인트
+  │  ├─ models/             # SQLAlchemy 모델
+  │  ├─ schemas/            # Pydantic 스키마
+  │  ├─ services/           # 비즈니스 로직
+  │  ├─ auth/               # JWT, 인증/권한
+  │  ├─ workers/            # Celery/RQ 작업자
+  │  └─ core/               # 설정, DB 연결, 미들웨어
+  ├─ migrations/            # Alembic 마이그레이션
+  └─ tests/                 # Pytest 기반 테스트
+
+/infrastructure
+  ├─ docker/                # Dockerfile, docker-compose
+  ├─ scripts/               # 배포/CI 스크립트
+  └─ terraform/             # 클라우드 인프라 코드(선택)
+
+
+메인 로직 개요
+인증/세션
+
+이메일·소셜 가입/로그인
+
+JWT(HttpOnly 쿠키·SecureStorage) 발급·검증
+
+채널 구독
+
+플랜(월정액) 생성·조회
+
+구독/결제 상태 업데이트(웹훅)
+
+콘텐츠 피드
+
+게시글/영상/공지 조회 API
+
+구독 여부에 따른 접근 제어
+
+채팅 스트림
+
+WebSocket 연결
+
+호스트 메시지 브로드캐스트
+
+알림
+
+새 게시물/라이브/결제 변경 시 FCM·이메일 발송
+
+호스트 대시보드
+
+게시글 작성·관리
+
+통계·정산 리포트
+
+관리자 기능
+
+신고 처리, 구독/결제 강제 조정
+
+사용자·IP 차단

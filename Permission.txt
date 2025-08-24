@@ -1,0 +1,15 @@
+Permissions (권한 설명)
+권한 코드	설명
+channel:own	채널 소유
+channel:manage	채널 설정 및 운영
+member:subscribe_manage	구독자 관리 (가입/해지 등)
+member:block_manage	맴버 차단/강퇴
+post:create	게시글 작성
+post:edit	게시글 수정
+post:delete	게시글 삭제
+post:read	게시글 읽기
+post:like	게시글 좋아요
+chat:write	채팅 작성
+chat:delete	채팅 삭제
+chat:read	채팅 읽기
+comment:write	댓글 작성
