@@ -62,3 +62,12 @@ def require_role(role: str):
         return user
 
     return checker
+
+
+async def require_subscriber(
+    user: Annotated[User, Depends(get_current_user)]
+) -> User:
+    """Allow access only to subscribers and creators."""
+    if user.role not in ("subscriber", "creator"):
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
+    return user
