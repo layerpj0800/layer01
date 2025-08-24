@@ -37,3 +37,13 @@ class IamportWebhook(BaseModel):
     status: str
     imp_uid: str | None = None
     # Add any additional fields you require from Iamport webhook payload
+
+
+class SubscriptionVerify(BaseModel):
+    merchant_uid: str
+    imp_uid: str | None = None
+
+
+class SubscriptionUpdate(BaseModel):
+    status: str | None = None
+    current_period_end: datetime | None = None
