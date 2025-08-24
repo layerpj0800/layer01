@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 
 from .core.config import settings
-from .api import auth, payments, subscriptions
 
 app = FastAPI(title="Layer01 API")
+
 
 
 app.include_router(auth.router)

@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+
 
 
 class Settings(BaseSettings):
@@ -10,6 +10,7 @@ class Settings(BaseSettings):
   iamport_api_key: str
   iamport_api_secret: str
   iamport_webhook_secret: str
+
 
   class Config:
     env_file = '.env'
