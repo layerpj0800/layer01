@@ -10,3 +10,4 @@ passlib[bcrypt]
 httpx
 aiosqlite
 email-validator
+sse-starlette
