@@ -14,6 +14,8 @@ from app.schemas.subscription import (
     PlanRead,
     SubscriptionCreate,
     SubscriptionRead,
+    SubscriptionUpdate,
+    SubscriptionVerify,
 )
 
 router = APIRouter(prefix="/subscriptions", tags=["subscriptions"])
@@ -51,11 +53,72 @@ async def subscribe(
     subscription = Subscription(
         user_id=user.id,
         plan_id=plan.id,
-        status="active",
+        status="pending",
         current_period_end=Subscription.default_period_end(),
         merchant_uid=str(uuid4()),
     )
     session.add(subscription)
+    await session.commit()
+    await session.refresh(subscription)
+    return subscription
+
+
+@router.get("/plans/{channel_id}", response_model=list[PlanRead])
+async def list_plans(
+    channel_id: int,
+    session: AsyncSession = Depends(get_session),
+):
+    result = await session.execute(select(Plan).where(Plan.channel_id == channel_id))
+    return result.scalars().all()
+
+
+@router.post("/verify-payment", response_model=SubscriptionRead)
+async def verify_payment(
+    payload: SubscriptionVerify,
+    session: AsyncSession = Depends(get_session),
+):
+    result = await session.execute(
+        select(Subscription).where(Subscription.merchant_uid == payload.merchant_uid)
+    )
+    subscription = result.scalar_one_or_none()
+    if subscription is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Subscription not found")
+    subscription.status = "active"
+    await session.commit()
+    await session.refresh(subscription)
+    return subscription
+
+
+@router.get("/me", response_model=SubscriptionRead | None)
+async def get_my_subscription(
+    session: AsyncSession = Depends(get_session),
+    user=Depends(get_current_user),
+):
+    result = await session.execute(
+        select(Subscription).where(Subscription.user_id == user.id)
+    )
+    return result.scalar_one_or_none()
+
+
+@router.put("/{subscription_id}", response_model=SubscriptionRead)
+async def update_subscription(
+    subscription_id: int,
+    payload: SubscriptionUpdate,
+    session: AsyncSession = Depends(get_session),
+    user=Depends(get_current_user),
+):
+    result = await session.execute(
+        select(Subscription).where(
+            Subscription.id == subscription_id, Subscription.user_id == user.id
+        )
+    )
+    subscription = result.scalar_one_or_none()
+    if subscription is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Subscription not found")
+    if payload.status is not None:
+        subscription.status = payload.status
+    if payload.current_period_end is not None:
+        subscription.current_period_end = payload.current_period_end
     await session.commit()
     await session.refresh(subscription)
     return subscription
