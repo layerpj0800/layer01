@@ -1,0 +1,9 @@
+:root {
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+
+  --color-primary: #1a73e8;
+  --color-secondary: #f9ab00;
+  --color-background: #ffffff;
+  --color-text: #202124;
+}
